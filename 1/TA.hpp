@@ -1,3 +1,5 @@
+#ifndef TACpp
+#define TACpp
 #include <String>
 
 
@@ -51,3 +53,5 @@ public:
     bool setStatus(std::string status);    
 
 };
+
+#endif

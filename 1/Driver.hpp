@@ -1,6 +1,8 @@
+#ifndef DriverCpp
+#define DriverCpp
 #include <string>
 #include <vector>
-#include <sstream>
+#include <fstream>
 #include "./TA.hpp"
 
 class Driver
@@ -9,7 +11,8 @@ private:
     /* data */
 
     std::string fileAddress;
-    std::ifstream * db;
+    std::ifstream * reader;
+    std::ostream * writer;
     
 
 public:
@@ -17,7 +20,8 @@ public:
 
     std::vector<TA> readFile();
     bool updateFile(std::vector<TA> data);
-    bool closeFile();
 
     ~Driver();
 };
+
+#endif
