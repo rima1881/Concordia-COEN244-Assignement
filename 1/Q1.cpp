@@ -17,9 +17,10 @@ int main(){
     Driver driver("./db.txt");
 
 
-    //reading the data
     cout << "reading the data\n";
     data = driver.readFile();
+    //if data size is 0 there was a problem with txt or there was nothing in txt
+    //eithere way running the rest of program is useless
     if(data.size() == 0){
         cout << "\ncan not read data!!! (press ctrl+c to stop program)";
         while (true);
@@ -33,10 +34,10 @@ int main(){
     //checking ta's status
     for(int i=0;i < data.size();i++)
         if(!data[i].checkStatus())
+            //removing extra data
             data.erase(data.begin() + i);
 
 
-    //updating the file
     cout << "updating the files\n";
     if(!driver.updateFile(data)){
         cout << "there was an error!!! with the file while updating (press ctrl+c to stop program)";

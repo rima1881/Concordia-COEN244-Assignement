@@ -20,8 +20,12 @@ private:
     std::string lastName;
     int hiredYear;
     int workingHours;
+        //Used enum in order to avoid invalid data
     Status status;
 
+
+    //statics
+        //just for keeping the track of TAs
     int static LAST_ID;
 
 public:
@@ -41,6 +45,7 @@ public:
     std::string getLastName();
     int getHiredYear();
     int getWorkingHours();
+        //the return type is string in order to avoid to string problems
     std::string getStatus();
 
 
@@ -50,6 +55,7 @@ public:
     void setLastName(std::string lastName);
     void setHiredYear(int hireYear);
     void setWorkingHours(int workingHours);
+        //it is reading from txt => the initial data is going to be string
     bool setStatus(std::string status);    
 
 };

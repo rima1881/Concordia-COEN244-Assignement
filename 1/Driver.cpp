@@ -16,7 +16,8 @@ std::vector<TA> Driver::readFile(){
     std::string line;
     int numline;
 
-    std::getline(*(this -> reader),line);
+    //getting the first line(number of data)
+    std::getline(*reader,line);
     numline = stoi(line);
 
     std::vector<TA> data;
@@ -30,6 +31,7 @@ std::vector<TA> Driver::readFile(){
 
     try{
 
+        //geting the data
         for(int i=0;i<numline;i++){
             *reader >> workingHours >> studentId >> hiredYear >> status >> fname;
 
@@ -59,8 +61,11 @@ bool Driver::updateFile(std::vector<TA> data){
 
         int numLine = data.size();
 
+        //writting the first line which is the size of data (TA)
         *writer << numLine << "\n";
 
+
+        //inserting the data in txt
         for(int i=0;i < numLine; i++)
             *writer << data[i].getWorkingHours() << " "
             << data[i].getStudentId() << " "
@@ -68,8 +73,6 @@ bool Driver::updateFile(std::vector<TA> data){
             << data[i].getStatus() << " "
             << data[i].getFirstName() << " "
             << data[i].getLastName() << "\n";
-
-
 
     }
     catch(const std::exception& e)
