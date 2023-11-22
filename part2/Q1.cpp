@@ -50,6 +50,22 @@ int main(){
 }
 
 
+void add(){
+    std::cout << "please enter the TA info in the following order:\n";
+    std::cout << "Age\tStudentId\tStatus\tYear_Hired\tWorking_Hours\n";
+    int age,working_hours,Year_Heared;
+    std::string status,StudentId;
+
+    std::cin >> age >> StudentId >> status >> Year_Heared >> working_hours;
+
+    bool res = TA::addTA(TA(StudentId,age,Year_Heared,working_hours,status));
+
+    if(!res)
+        std::cout << "there was already a TA with the same student id";
+
+
+}
+
 
 int menu(){
 
@@ -65,6 +81,8 @@ int menu(){
             std::cout << "3)exit" << std::endl;
             std::cout << "please enter the operation number:";
 
+            std::cin >> option;
+
             if(option > 0 && option < 4)
                 break;
 
@@ -74,8 +92,9 @@ int menu(){
 
         switch (option){
         case 1:
-
+        
         case 2:
+
         case 3:
         default:
             return 0;

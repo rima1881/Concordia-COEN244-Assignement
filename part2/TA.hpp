@@ -31,9 +31,8 @@ private:
 public:
 
     static std::vector<TA> TAs;
-    static void addTA();
+    static void addTA(TA t);
     //constructors
-    TA();
     TA(std::string stdId,int age,int hireYear,int workingHours,std::string status);
 
     //public methods

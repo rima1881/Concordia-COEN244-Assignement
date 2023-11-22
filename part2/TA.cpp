@@ -5,10 +5,8 @@
 int TA::LAST_ID = 0;
 std::vector<TA> TA::TAs;
 
-void TA::addTA(){
-
-    std::cout << "please enter the TA info in the below order";
-
+void TA::addTA(TA t){
+    TAs.push_back(t);
 }
 
 
