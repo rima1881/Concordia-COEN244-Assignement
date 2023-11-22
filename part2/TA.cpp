@@ -5,16 +5,14 @@
 int TA::LAST_ID = 0;
 std::vector<TA> TA::TAs;
 
-void TA::addTA(TA t){
-    TAs.push_back(t);
+void TA::save(){
+    TAs.push_back(*this);
 }
 
 
 //Constructors
 TA::TA(){
-
     this -> id = LAST_ID++;
-
 }
 
 TA::TA(std::string stdId,int age,int hireYear,int workingHours,std::string status){

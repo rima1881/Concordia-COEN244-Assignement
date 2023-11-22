@@ -2,6 +2,7 @@
 #define TACpp
 #include <String>
 #include <vector>
+#include <functional>
 
 
 enum class Status{
@@ -24,27 +25,28 @@ private:
     Status status;
 
 
+
     //statics
         //just for keeping the track of TAs
     int static LAST_ID;
 
 public:
 
-    static std::vector<TA> TAs;
-    static void addTA(TA t);
-    //constructors
     TA(std::string stdId,int age,int hireYear,int workingHours,std::string status);
+    TA();
+
+
+    static std::vector<TA> TAs;
+
 
     //public methods
     bool checkStatus();
-
+    void save();
 
     //getters
     int getId();
     int getAge();
     std::string getStudentId();
-    std::string getFirstName();
-    std::string getLastName();
     int getHiredYear();
     int getWorkingHours();
         //the return type is string in order to avoid to string problems
@@ -53,8 +55,6 @@ public:
 
     //setters
     void setStudentId(std::string studentId);
-    void setFirstName(std::string firstName);
-    void setLastName(std::string lastName);
     void setHiredYear(int hireYear);
     void setAge(int);
     void setWorkingHours(int workingHours);

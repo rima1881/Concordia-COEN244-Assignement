@@ -1,5 +1,6 @@
 #include <iostream>
 #include "./Driver.hpp"
+#include "./Error.hpp"
 #include  "./TA.hpp"
 
 int menu();
@@ -58,10 +59,16 @@ void add(){
 
     std::cin >> age >> StudentId >> status >> Year_Heared >> working_hours;
 
-    bool res = TA::addTA(TA(StudentId,age,Year_Heared,working_hours,status));
+    TA ta(StudentId,age,Year_Heared,working_hours,status);
 
-    if(!res)
-        std::cout << "there was already a TA with the same student id";
+
+    try{
+        ta.save();
+    }
+    catch(Error err){
+        std::cout << err.getMSG();
+    }
+
 
 
 }
