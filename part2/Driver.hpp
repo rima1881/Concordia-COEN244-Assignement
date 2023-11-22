@@ -19,9 +19,10 @@ private:
 public:
     Driver(std::string fileName);
 
-    std::vector<TA> readFile();
+
+    void readFile();
     //the bool is used for error tracking
-    bool updateFile(std::vector<TA> data);
+    bool updateFile();
 
     ~Driver();
 };
