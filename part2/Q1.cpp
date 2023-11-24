@@ -5,11 +5,11 @@
 #include "./Error.hpp"
 #include  "./TA.hpp"
 
-int menu();
+bool menu();
 void add();
 int orderBy();
 void sort();
-void test();
+void list();
 
 int main(){
 
@@ -58,13 +58,16 @@ int main(){
 
 
     
-    menu();
+    if(menu()){
 
-    cout << "updating the files\n";
-    if(!driver.updateFile()){
-        cout << "there was an error!!! with the file while updating (press ctrl+c to stop program)";
-        while (true);
+        cout << "updating the files\n";
+        if(!driver.updateFile()){
+            cout << "there was an error!!! with the file while updating (press ctrl+c to stop program)";
+            while (true);
+        }
     }
+
+    std::cout << std::endl << "goodbye :)";
 
 
     return 0;
@@ -123,56 +126,58 @@ int orderBy(){
 void sort(){
 
     std::function<bool(TA t1,TA t2)> sortMethod;
-    int option = orderBy();
+    int ass, option = orderBy();
+
+    std::cout << "Do you want it ascending or descending(1-ascending: 2-descending)";
+    std::cin >> ass;
+
+    bool isAss = (ass == 1);
+
 
     if(option == 1)
-        sortMethod = [] (TA t1,TA t2) {
-            return t1.getStudentId() > t2.getStudentId();
+        sortMethod = [&isAss] (TA t1,TA t2) {
+            return ( (t1.getStudentId() > t2.getStudentId()) == isAss);
         };
     else if(option == 2)
-        sortMethod = [] (TA t1,TA t2) {
-            return t1.getAge() > t2.getAge();
+        sortMethod = [&isAss] (TA t1,TA t2) {
+            return ( (t1.getAge() > t2.getAge()) == isAss);
         };
     else if(option == 3)
-        sortMethod = [] (TA t1,TA t2) {
-            return t1.getStatus() > t2.getStatus();
+        sortMethod = [&isAss] (TA t1,TA t2) {
+            return (t1.getStatus() < t2.getStatus() == isAss);
         };
     else if(option == 4)
-        sortMethod = [] (TA t1,TA t2) {
-            return t1.getHiredYear() > t2.getHiredYear();
+        sortMethod = [&isAss] (TA t1,TA t2) {
+            return (t1.getHiredYear() > t2.getHiredYear() == isAss);
         };
     else
-        sortMethod = [] (TA t1,TA t2) {
-            return t1.getWorkingHours() > t2.getHiredYear();
+        sortMethod = [&isAss] (TA t1,TA t2) {
+            return (t1.getWorkingHours() > t2.getWorkingHours() == isAss);
         };
     
 
     std::sort(TA::TAs.begin(),TA::TAs.end(),sortMethod);
 
-    //std::cout << "Do you want it ascending or descending(1-ascending: 2-descending)";
-    
-    option = -1;
-
-    
-    
-
-
 }
 
 
-void test(){
+void list(){
+
+    system("cls"); 
+
+    std::cout << "Age\tStudentId\tStatus\tYear Hired\tWorking Hours" << std::endl;
+
     for (TA t : TA::TAs)
     {
         std::cout << t.getAge() << "\t" << t.getStudentId() << "\t"
         << t.getStatus() << "\t"
-        << t.getWorkingHours() << "\t"
-        << t.getHiredYear() << "\n";
+        << t.getHiredYear() << "\t\t"
+        << t.getWorkingHours() << std::endl;
     }
     
 }
 
-
-int menu(){
+bool menu(){
 
     system("cls"); 
 
@@ -183,18 +188,22 @@ int menu(){
 
         std::cout << "1)Add new TA" << std::endl;
         std::cout << "2)Sort TAs based on thier props" << std::endl;
-        std::cout << "3)exit" << std::endl;
+        std::cout << "3)List the TAs" << std::endl;
+        std::cout << "4)exit without saving" << std::endl;
+        std::cout << "5)exit and saving changes to the file" << std::endl;
         std::cout << "please enter the operation number:";
         std::cin >> option;
 
-        if(option == 3)
-            break;
+        if(option == 4)
+            return false;
+        else if(option == 5)
+            return true;
         else if(option == 1)
             add();
         else if(option == 2)
             sort();
-        else if(option == 4)
-            test();
+        else if(option == 3)
+            list();
         else
             std::cout << "\nIncorrect number!!!" << std::endl;
 
