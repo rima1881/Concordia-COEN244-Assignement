@@ -44,3 +44,12 @@ class BadAge : public Error
 public:
     BadAge(/* args */);
 };
+
+
+class BadFile : public Error
+{
+private:
+    /* data */
+public:
+    BadFile(/* args */);
+};

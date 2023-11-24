@@ -33,3 +33,8 @@ BadWorkingHours::BadWorkingHours(){
     this -> msg = "working hours should be between 0 - 40";
     code = 5;   
 }
+
+BadFile::BadFile(){
+    this -> msg = "No data chould be extracted from the file!!!\nplease recheck the address of file";
+    code = 6;
+}

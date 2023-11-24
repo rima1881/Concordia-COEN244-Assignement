@@ -1,31 +1,49 @@
 #include <iostream>
+#include <algorithm>
+#include <functional>
 #include "./Driver.hpp"
 #include "./Error.hpp"
 #include  "./TA.hpp"
 
 int menu();
 void add();
-void display();
+int orderBy();
+void sort();
 void test();
 
 int main(){
 
     using namespace std;
 
+    std::cout << "*************************************" << std::endl;
+    std::cout << "Loadding... " << std::endl;
+    std::cout << "*************************************" << std::endl << std::endl;
+
+    std::cout << "please enter the Address TAs Data file: ";
+    std::string Address;
+    std::cin >> Address;
+
+
     cout << "\nOpenning The file\n";
 
     //openning the file
-    Driver driver("./db.txt");
+    Driver driver(Address);
 
 
     cout << "reading the data\n";
-    driver.readFile();
-    //if data size is 0 there was a problem with txt or there was nothing in txt
-    //eithere way running the rest of program is useless
-    if(TA::TAs.size() == 0){
-        cout << "\ncan not read data!!! (press ctrl+c to stop program)";
+
+    try{
+        driver.readFile();
+        if(TA::TAs.size() == 0)
+            throw new BadFile();
+    }
+    catch (Error *err){
+        std::cout << err -> what();
         while (true);
-        
+    }
+    catch (...){
+        std::cout << "there was an unknown error please restart the program!!!";
+        while(true);
     }
 
     
@@ -76,12 +94,71 @@ void add(){
 }
 
 
-void display(){
+int orderBy(){
+
+    int option = -1;
+    system("cls"); 
+
+    while (true)
+    {
+        std::cout << "please choose by what attribute do you wanna see the TAs:"<<std::endl;
+        std::cout << "1)Student Id" << std::endl;
+        std::cout << "2)Age" << std::endl;
+        std::cout << "3)Status" << std::endl;
+        std::cout << "4)Hired Year" << std::endl;
+        std::cout << "5)Working Hours" << std::endl;
+
+        std::cin >> option;
+
+        if(option > 0 && option < 6)
+            return option;
+
+        std::cout << "Incorrect Number!!!" << std::endl << std::endl;
+    }
 
 
-    std::cout << "please choose by what attribute do you wanna see the TAs:"<<std::endl;
 
 }
+
+void sort(){
+
+    std::function<bool(TA t1,TA t2)> sortMethod;
+    int option = orderBy();
+
+    if(option == 1)
+        sortMethod = [] (TA t1,TA t2) {
+            return t1.getStudentId() > t2.getStudentId();
+        };
+    else if(option == 2)
+        sortMethod = [] (TA t1,TA t2) {
+            return t1.getAge() > t2.getAge();
+        };
+    else if(option == 3)
+        sortMethod = [] (TA t1,TA t2) {
+            return t1.getStatus() > t2.getStatus();
+        };
+    else if(option == 4)
+        sortMethod = [] (TA t1,TA t2) {
+            return t1.getHiredYear() > t2.getHiredYear();
+        };
+    else
+        sortMethod = [] (TA t1,TA t2) {
+            return t1.getWorkingHours() > t2.getHiredYear();
+        };
+    
+
+    std::sort(TA::TAs.begin(),TA::TAs.end(),sortMethod);
+
+    //std::cout << "Do you want it ascending or descending(1-ascending: 2-descending)";
+    
+    option = -1;
+
+    
+    
+
+
+}
+
 
 void test(){
     for (TA t : TA::TAs)
@@ -97,8 +174,10 @@ void test(){
 
 int menu(){
 
+    system("cls"); 
+
     while (true){
-    
+        
 
         int option = -1;
 
@@ -113,7 +192,7 @@ int menu(){
         else if(option == 1)
             add();
         else if(option == 2)
-            display();
+            sort();
         else if(option == 4)
             test();
         else
