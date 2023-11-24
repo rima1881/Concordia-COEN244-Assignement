@@ -1,4 +1,5 @@
 #include "./TA.hpp"
+#include "./Error.hpp"
 #include <iostream>
 
 //statics
@@ -6,6 +7,22 @@ int TA::LAST_ID = 0;
 std::vector<TA> TA::TAs;
 
 void TA::save(){
+
+    if(this -> age > 150 || this -> age < 0)
+        throw new BadAge();
+    
+    if(this -> studentId.length() != 8)
+        throw new BadStudentId();
+
+    if(this -> hiredYear < 1950 || this -> hiredYear > 2023)
+        throw new BadHearedYear();
+
+    if(this -> workingHours > 40 || this -> workingHours < 0)
+        throw new BadWorkingHours();
+
+    if(this -> status != Status::Grad && this -> status != Status::UGrad)
+        throw new BadStatus();
+
     TAs.push_back(*this);
 }
 
@@ -15,12 +32,13 @@ TA::TA(){
     this -> id = LAST_ID++;
 }
 
-TA::TA(std::string stdId,int age,int hireYear,int workingHours,std::string status){
+TA::TA(std::string stdId,int age,int hy,int workingHours,std::string status){
+
 
     this -> id = LAST_ID++;
     this -> studentId = stdId;
     this -> age = age;
-    this -> hiredYear = hiredYear;
+    this -> hiredYear = hy;
     this -> workingHours = workingHours;
     
 

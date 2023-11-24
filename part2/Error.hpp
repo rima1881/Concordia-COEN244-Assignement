@@ -6,7 +6,7 @@ protected:
     std::string msg;
     int code;
 public:
-    std::string getMSG();
+    std::string what();
     int getCode();
 };
 

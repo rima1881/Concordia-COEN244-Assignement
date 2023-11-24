@@ -4,7 +4,7 @@ int Error::getCode(){
     return this -> code;
 }
 
-std::string Error::getMSG(){
+std::string Error::what(){
     return this -> msg;
 }
 

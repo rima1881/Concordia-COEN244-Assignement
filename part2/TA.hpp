@@ -35,7 +35,6 @@ public:
     TA(std::string stdId,int age,int hireYear,int workingHours,std::string status);
     TA();
 
-
     static std::vector<TA> TAs;
 
 

@@ -5,6 +5,8 @@
 
 int menu();
 void add();
+void display();
+void test();
 
 int main(){
 
@@ -59,18 +61,37 @@ void add(){
 
     std::cin >> age >> StudentId >> status >> Year_Heared >> working_hours;
 
+
     TA ta(StudentId,age,Year_Heared,working_hours,status);
-
-
+    
     try{
         ta.save();
     }
-    catch(Error err){
-        std::cout << err.getMSG();
+    catch(Error *err){
+        std::cout << err->what() << std::endl;
     }
 
 
 
+}
+
+
+void display(){
+
+
+    std::cout << "please choose by what attribute do you wanna see the TAs:"<<std::endl;
+
+}
+
+void test(){
+    for (TA t : TA::TAs)
+    {
+        std::cout << t.getAge() << "\t" << t.getStudentId() << "\t"
+        << t.getStatus() << "\t"
+        << t.getWorkingHours() << "\t"
+        << t.getHiredYear() << "\n";
+    }
+    
 }
 
 
@@ -81,31 +102,25 @@ int menu(){
 
         int option = -1;
 
-        while (true)
-        {
-            std::cout << "1)Add new TA" << std::endl;
-            std::cout << "2)Sort TAs based on thier props" << std::endl;
-            std::cout << "3)exit" << std::endl;
-            std::cout << "please enter the operation number:";
+        std::cout << "1)Add new TA" << std::endl;
+        std::cout << "2)Sort TAs based on thier props" << std::endl;
+        std::cout << "3)exit" << std::endl;
+        std::cout << "please enter the operation number:";
+        std::cin >> option;
 
-            std::cin >> option;
+        if(option == 3)
+            break;
+        else if(option == 1)
+            add();
+        else if(option == 2)
+            display();
+        else if(option == 4)
+            test();
+        else
+            std::cout << "\nIncorrect number!!!" << std::endl;
 
-            if(option > 0 && option < 4)
-                break;
 
-            std::cout << "\nIncorrect number!!!";
-        }
-
-
-        switch (option){
-        case 1:
-        
-        case 2:
-
-        case 3:
-        default:
-            return 0;
-        }
-    
     }
+
+    return 0;
 }
